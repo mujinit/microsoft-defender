@@ -56,7 +56,7 @@
     state: file
 
 - name: Onboard the Debian machine
-  command: /etc/opt/microsoft/mdatp/MicrosoftDefenderATPOnboardingLinuxServer.py
+  command: python /etc/opt/microsoft/mdatp/MicrosoftDefenderATPOnboardingLinuxServer.py
 
 
 
