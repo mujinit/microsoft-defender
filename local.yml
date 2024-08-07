@@ -10,5 +10,5 @@
 
   tasks:
     - include: tasks/users.yml
-    - include: tasks/cron.yml
-    - include: tasks/package.yml
+    - include: tasks/install_defender.yml
+#    - include: tasks/package.yml

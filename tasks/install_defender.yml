@@ -1,0 +1,72 @@
+- name: Ensure prerequisites are installed
+  apt:
+    name:
+    - curl
+    - libplist-utils
+    - gpg
+    - pnupg
+    update_cache: yes
+
+- name: Add Microsoft APT key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add Microsoft apt repository for MDATP
+  apt_repository:
+    repo: deb [arch=arm64,armhf,amd64] https://packages.microsoft.com/debian/11/prod bullseye main
+    update_cache: yes
+    state: present
+    filename: microsoft-prod
+  when: ansible_os_family == "Debian"
+
+- name: Install MDATP
+  apt:
+    name: mdatp
+    state: latest
+    update_cache: yes
+
+- name: Create MDATP directories
+  file:
+    path: /etc/opt/microsoft/mdatp/
+    recurse: true
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Register mdatp_onboard.json
+  stat:
+    path: /etc/opt/microsoft/mdatp/mdatp_onboard.json
+  register: mdatp_onboard
+
+- name: Extract WindowsDefenderATPOnboardingPackageLinux.zip into /etc/opt/microsoft/mdatp
+  unarchive:
+    src: files/WindowsDefenderATPOnboardingPackageLinux.zip
+    dest: /etc/opt/microsoft/mdatp
+    mode: 0600
+    owner: root
+    group: root
+  when: not mdatp_onboard.stat.exists
+
+
+
+# - name: download MDE production repository
+#   shell: "curl -o microsoft.list https://packages.microsoft.com/config/debian/11/prod.list"
+
+# - name: move and change microsoft.list file
+#   sudo mv ./microsoft.list /etc/apt/sources.list.d/microsoft-prod.list
+
+# - name: install Microsoft GPG public key
+#   curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+
+# - name: Application installation
+#   apt: 
+#     update_cache: yes
+#     - mdatp
+
+# - name: Download the onboarding package
+
+# - name: Run onboarding script
+#   sudo python MicrosoftDefenderATPOnboardingLinuxServer.py

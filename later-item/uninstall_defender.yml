@@ -1,0 +1,4 @@
+- name: Uninstall MDATP
+  apt:
+    name: mdatp
+    state: absent
