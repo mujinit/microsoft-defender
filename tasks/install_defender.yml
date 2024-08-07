@@ -4,7 +4,6 @@
     - curl
     - libplist-utils
     - gpg
-    - pnupg
     update_cache: yes
 
 - name: Add Microsoft APT key
