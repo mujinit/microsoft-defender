@@ -49,6 +49,16 @@
     group: root
   when: not mdatp_onboard.stat.exists
 
+- name: Ensure the Phython script has execute permissions
+  file:
+    src: /etc/opt/microsoft/mdatp/MicrosoftDefenderATPOnboardingLinuxServer.py
+    mode: 0755
+    state: file
+
+- name: Onboard the Debian machine
+  command: /etc/opt/microsoft/mdatp/MicrosoftDefenderATPOnboardingLinuxServer.py
+  
+
 
 
 # - name: download MDE production repository
