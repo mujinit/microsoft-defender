@@ -3,10 +3,14 @@
   become: true
 
   tasks:
-  - name: copy a file for testing
-    copy:
-      src: files/testfile
-      dest: /home/mujin/
+  - name: Install htop
+    apt:
+      name: htop
+      
+  # - name: copy a file for testing
+  #   copy:
+  #     src: files/testfile
+  #     dest: /home/mujin/
 
 
     # - name: install cron job (ansible-pull)
