@@ -1,12 +1,12 @@
 - hosts: localhost
-  connection: local
+  #connection: local
   become: true
 
   tasks:
   - name: Install htop
     apt:
       name: htop
-      
+
   # - name: copy a file for testing
   #   copy:
   #     src: files/testfile
