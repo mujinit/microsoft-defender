@@ -1,12 +1,12 @@
 - hosts: localhost
-  #connection: local
+  connection: local
   become: true
 
   tasks:
-    - name: copy a file for testing
-      copy:
-        src: files/testfile
-        dest: /home/mujin/
+  - name: copy a file for testing
+    copy:
+      src: files/testfile
+      dest: /home/mujin/
 
 
     # - name: install cron job (ansible-pull)
