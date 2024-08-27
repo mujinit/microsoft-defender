@@ -2,13 +2,31 @@
   connection: local
   become: true
 
-  pre_tasks:
-    - name: update repositories
-      apt:
-        update_cache: yes
-      changed_when: False
-
   tasks:
-    - include: tasks/users.yml
-    - include: tasks/install_defender.yml
-#    - include: tasks/package.yml
+    - name: copy a file for testing
+      copy:
+        src: files/testfile
+        dest: /home/mujin/
+
+
+    # - name: install cron job (ansible-pull)
+    #   cron:
+    #     user: ansible
+    #     name: "ansible provision"
+    #     minute: "*/10"
+    #     job: "/usr/bin/ansible-pull -o -U https://github.com/mujinit/microsoft-defender.git > /dev/null"
+
+    #   - name: 01.10 Check the group ownership of /var/opt/microsoft/mdatp/definitions.noindex
+    #     stat:
+    #       path: /var/opt/microsoft/mdatp/definitions.noindex
+    #     register: def_folder_stat
+
+    #   - name: 01.11 Change group ownership to mdatp if it's root
+    #     command: chown root:mdatp /var/opt/microsoft/mdatp/definitions.noindex
+    #     when: def_folder_stat.stat.gid == 0  # GID 0 corresponds to the 'root' group
+
+    #   - name: 01.12 Restart mdatp service
+    #     systemd:
+    #       name: mdatp
+    #       state: restarted
+    #     when: def_folder_stat.stat.gid == 0  # GID 0 corresponds to the 'root' group

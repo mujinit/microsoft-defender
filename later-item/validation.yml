@@ -1,5 +1,0 @@
-- name: validate defender installation
-  shell: "ansible -m shell -a 'mdatp connectivity test' all"
-
-- name: validate defender configuration
-  shell: "ansible -m shell -a 'mdatp health' all"
